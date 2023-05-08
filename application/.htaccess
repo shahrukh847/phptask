@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUESTFILENAME} !-f
+RewriteCond %{REQUESTFILENAME} !-d
+RewriteCond $1 !^(index.php|assets|upload|robots.txt|..css)
+RewriteRule ^(.)$ index.php?/$1 [L]
