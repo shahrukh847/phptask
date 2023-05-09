@@ -26,6 +26,14 @@ class Transaction_Model extends CI_Model
 		return $this->db->get('transactions')->num_rows();
 	}
 
+	function today_transaction($todaydate)
+	{
+		$this->db->select('id');
+		$this->db->where('user_id',$this->session->userdata('uid'));
+		$this->db->where('transaction_date', $todaydate);
+		return $this->db->get('transactions')->num_rows();
+	}
+
 	public function transaction_list()
 	{
 		$this->db->select('transactions.*,stoxs.name as stox_name,exchanges.name as exchange_name');

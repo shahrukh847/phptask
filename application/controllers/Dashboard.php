@@ -11,14 +11,19 @@ class Dashboard extends CI_Controller {
 			redirect('signin');
 
 		$this->load->model('transaction_Model');
+		$this->load->helper('date');
 	}
 
 	public function index(){
+
+		$format = "%Y-%m-%d";
+		$todaydate = mdate($format);
 
 		$data['uname'] = $this->session->userdata('uname');
 		$data['total_transactions'] = $this->transaction_Model->fetch_total_transactions();
 		$data['buy'] = $this->transaction_Model->buy_transactions();
 		$data['sell'] = $this->transaction_Model->sell_transactions();
+		$data['today_transaction'] = $this->transaction_Model->today_transaction($todaydate);
 		
 		$this->load->view('layout/head',$data);
 		$this->load->view('layout/sidebar',$data);

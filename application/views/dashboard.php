@@ -71,7 +71,7 @@
 					<!-- small box -->
 					<div class="small-box bg-danger">
 						<div class="inner">
-							<h3>1</h3>
+							<h3><?php echo $today_transaction ?></h3>
 
 							<p>Transaction Today</p>
 						</div>

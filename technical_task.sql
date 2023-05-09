@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 08, 2023 at 08:48 AM
+-- Generation Time: May 09, 2023 at 10:20 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `stoxs` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `stoxs`
@@ -129,7 +129,8 @@ INSERT INTO `stoxs` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (4, 'CAPITA', '2023-05-06 05:05:42', '2023-05-06 05:05:42'),
 (5, 'REL', '2023-05-06 05:05:42', '2023-05-06 05:05:42'),
 (6, 'ADANI', '2023-05-06 05:05:42', '2023-05-06 05:05:42'),
-(7, 'TECHM', '2023-05-06 05:05:42', '2023-05-06 05:05:42');
+(7, 'TECHM', '2023-05-06 05:05:42', '2023-05-06 05:05:42'),
+(8, 'icici', '2023-05-09 17:30:07', '2023-05-09 17:30:07');
 
 -- --------------------------------------------------------
 
@@ -146,28 +147,25 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `transaction_type` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `quantity` int NOT NULL,
   `avg_price` float NOT NULL,
+  `total_price` float NOT NULL,
   `transaction_date` date NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `user_id`, `stox_id`, `exchange_id`, `transaction_type`, `quantity`, `avg_price`, `transaction_date`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'Buy', 100, 25, '2023-05-07', '2023-05-07 10:41:48', '2023-05-07 10:41:48'),
-(2, 1, 1, 1, 'Sell', 10, 30, '2023-05-07', '2023-05-07 10:43:16', '2023-05-07 10:43:16'),
-(3, 1, 2, 1, 'Buy', 100, 1400, '2023-05-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 1, 2, 2, 'Buy', 20, 1450, '2023-05-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 1, 3, 1, 'Buy', 10, 450, '2023-05-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 1, 3, 1, 'Buy', 100, 1000, '2023-05-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 1, 6, 2, 'Buy', 100, 100, '2023-05-08', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 1, 6, 2, 'Buy', 100, 100, '2023-05-08', '2023-05-08 05:49:44', '2023-05-08 05:49:44'),
-(9, 1, 6, 2, 'Buy', 100, 100, '2023-05-08', '2023-05-08 05:49:49', '2023-05-08 05:49:49'),
-(10, 1, 6, 2, 'Buy', 100, 100, '2023-05-08', '2023-05-08 05:49:54', '2023-05-08 05:49:54'),
-(11, 1, 6, 2, 'Buy', 100, 100, '2023-05-08', '2023-05-08 05:49:59', '2023-05-08 05:49:59');
+INSERT INTO `transactions` (`id`, `user_id`, `stox_id`, `exchange_id`, `transaction_type`, `quantity`, `avg_price`, `total_price`, `transaction_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'Buy', 10, 100, 1000, '2023-05-09', '2023-05-09 21:25:04', '2023-05-09 21:25:04'),
+(2, 1, 1, 2, 'Buy', 10, 110, 1100, '2023-05-09', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 1, 1, 'Sell', 10, 90, 900, '2023-05-09', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 1, 1, 1, 'Buy', 10, 70, 700, '2023-05-09', '2023-05-09 21:15:03', '2023-05-09 21:15:03'),
+(5, 1, 1, 1, 'Sell', 10, 100, 1000, '2023-05-09', '2023-05-09 21:17:50', '2023-05-09 21:17:50'),
+(6, 1, 2, 1, 'Buy', 50, 100, 5000, '2023-05-09', '2023-05-09 21:18:55', '2023-05-09 21:18:55'),
+(7, 1, 2, 1, 'Sell', 10, 110, 1100, '2023-05-09', '2023-05-09 22:12:27', '2023-05-09 22:12:27');
 
 -- --------------------------------------------------------
 

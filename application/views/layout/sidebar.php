@@ -115,16 +115,13 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?= base_url() ?>/dashboard" class="nav-link">
+							<a href="<?= base_url() ?>report" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
 									Reports
 								</p>
 							</a>
 						</li>
-						
-						
-						
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->

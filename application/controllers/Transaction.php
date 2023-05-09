@@ -39,7 +39,7 @@ class Transaction extends CI_Controller {
 	public function check()
 	{
 		$data = array();
-		$stock_id = $this->input->post('stock_id');
+		$stock_id = $this->input->post('stox_id');
 		$quantity = $this->input->post('quantity');
 		$buydata = $this->transaction_Model->total_buy_sell_stox($stock_id,'Buy');
 		$selldata = $this->transaction_Model->total_buy_sell_stox($stock_id,'Sell');
@@ -56,11 +56,12 @@ class Transaction extends CI_Controller {
 
 		$data['status'] = TRUE;
 		$availableStox = $totalBuy - $totalSell;
+		$data['available_stox'] = $availableStox;
 
 		if ($quantity > $availableStox) {
 			$data['status'] = FALSE;
-			$data['available_stox'] = $availableStox;
 		}
+
 		echo json_encode($data);
 	}
 
@@ -68,6 +69,7 @@ class Transaction extends CI_Controller {
 	{
 		$format = "%Y-%m-%d";
 		$date = mdate($format);
+		$total_price = $this->input->post('quantity') * $this->input->post('price');
 
 		$data = array(
 			'user_id' => $this->session->userdata('uid'),
@@ -76,6 +78,7 @@ class Transaction extends CI_Controller {
 			'transaction_type' => $this->input->post('transaction_type'),
 			'quantity' => $this->input->post('quantity'),
 			'avg_price' => $this->input->post('price'),
+			'total_price' => $total_price,
 			'transaction_date' => $date,
 		);
 

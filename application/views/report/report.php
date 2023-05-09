@@ -4,7 +4,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>stocks</h1>
+					<h1>Reprts</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
@@ -24,27 +24,42 @@
 					<!-- BAR CHART -->
 					<div class="card card-success">
 						<div class="card-header">
-							<h3 class="card-title">Bar Chart</h3>
-
-							<div class="card-tools">
-								<button type="button" class="btn btn-tool" data-card-widget="collapse">
-									<i class="fas fa-minus"></i>
-								</button>
-								<button type="button" class="btn btn-tool" data-card-widget="remove">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
+							<h3 class="card-title">Report Data</h3>
 						</div>
-						<div class="card-body">
-							<div class="chart">
-								<canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-							</div>
+						 <div class="card-body">
+							 <table id="example2" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th style="width: 10px">Sr.No</th>
+										<th>Stock Name</th>
+										<th>Total Buy Quantity </th>
+										<th>Total Buy AVG</th>
+										<th>Total Sell Quantity </th>
+										<th>Total Sell AVG</th>
+										<th>Profit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php if($stox): ?>
+										<?php 
+										$row_count = 1;
+										foreach($stox as $value): ?>
+											<tr>
+												<td><?php echo $row_count;?>.</td>
+												<td><?php echo $value->stox_name; ?></td>
+												<td><?php echo $value->total_quantity_buy; ?></td>
+												<td><?php echo $value->total_avg_price_Buy; ?></td>
+												<td><?php echo $value->total_quantity_sell; ?></td>
+												<td><?php echo $value->total_avg_price_sell; ?></td>
+												<td><?php echo $value->profit; ?></td>
+											</tr>
+											<?php $row_count++; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>
+								</tbody>
+							</table>
 						</div>
-						<!-- /.card-body -->
 					</div>
-					<!-- /.card -->
-					
-
 				</div>
 				<!-- /.col -->
 			</div>

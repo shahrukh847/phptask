@@ -11,15 +11,57 @@ class Report extends CI_Controller {
 
 	function index()
 	{
-		$data['year_list'] = $this->report_model->fetch_year();
-		$data['uname'] = $this->session->userdata('uname');
-		$data['title'] = 'Exchange List';
+		$dataArray = array();
+		$dataArray['stox_data'] = $this->report_model->stox_data();
 
-		$this->load->view('layout/head',$data);
-		$this->load->view('layout/sidebar',$data);
-		$this->load->view('report/report',$data);
-		$this->load->view('layout/footer',$data);
-		$this->load->view('layout/script',$data);
+		foreach ($dataArray['stox_data'] as $key => $data) {
+
+			$stoxId = $data->stox_id;
+			$buyResult = $this->report_model->totalBuy($stoxId);
+			
+			$totalQuantityBuy = 0;
+			$totalPriceBuy = 0;
+
+			foreach ($buyResult as $key => $buy) {
+				$totalQuantityBuy = $totalQuantityBuy + $buy->quantity;
+				$totalPriceBuy = $totalPriceBuy + $buy->total_price;
+			}
+
+			$data->total_quantity_buy = $totalQuantityBuy;
+			$data->total_avg_price_Buy = round($totalPriceBuy/$totalQuantityBuy,2);
+
+			$sellResult = $this->report_model->totalSell($stoxId);
+
+			if (!empty($sellResult)) {
+
+				$totalQuantitySell = 0;
+				$totalPriceSell = 0;
+
+				foreach ($sellResult as $key => $sell) {
+					$totalQuantitySell = $totalQuantitySell + $sell->quantity;
+					$totalPriceSell = $totalPriceSell + $sell->total_price;
+				}
+
+				$data->total_quantity_sell = $totalQuantitySell;
+				$data->total_avg_price_sell = round($totalPriceSell / $totalQuantitySell,2);
+				$profit = round(($data->total_avg_price_sell - $data->total_avg_price_Buy) * $data->total_quantity_sell, 2);
+				$data->profit = $profit;
+			} else {
+				$data->total_quantity_sell = 0;
+				$data->total_avg_price_sell = 0;
+				$data->profit = 0;
+			}
+		}
+
+		$mainData['stox'] = $dataArray['stox_data']; 
+		$mainData['uname'] = $this->session->userdata('uname');
+		$mainData['title'] = 'Report List';
+
+		$this->load->view('layout/head',$mainData);
+		$this->load->view('layout/sidebar',$mainData);
+		$this->load->view('report/report',$mainData);
+		$this->load->view('layout/footer',$mainData);
+		$this->load->view('layout/script',$mainData);
 	}
 
 	function fetch_data()
